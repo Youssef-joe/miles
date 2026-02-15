@@ -1,0 +1,47 @@
+[cerebrium.deployment]
+name = "10-sesame-voice-api-v14"
+python_version = "3.10"
+include = ["main.py", "generator.py", "models.py", "watermarking.py", "__init__.py"]
+
+shell_commands = [
+    "pip install silentcipher --no-deps",
+    "find /micromamba -name 'libnppicc.so.12' -exec ln -sf {} /usr/lib/ \\; || true",
+    "find /micromamba -name 'libnvrtc.so.12' -exec ln -sf {} /usr/lib/ \\; || true",
+    "ln -sf /usr/lib/x86_64-linux-gnu/libavutil.so.57 /usr/lib/libavutil.so.57 || true",
+    "ln -sf /usr/lib/x86_64-linux-gnu/libavcodec.so.59 /usr/lib/libavcodec.so.58 || true",
+    "ldconfig"
+]
+
+[cerebrium.hardware]
+gpu_count = 1
+compute = "AMPERE_A10" 
+
+[cerebrium.dependencies.apt]
+ffmpeg = "latest"
+"libgl1-mesa-glx" = "latest"
+"libglib2.0-0" = "latest"
+
+[cerebrium.dependencies.pip]
+torch = "2.4.1"
+torchaudio = "2.4.1"
+torchvision = "0.19.1"
+torchcodec = "0.1.1"
+torchao = "0.7.0"
+torchtune = "0.4.0"
+moshi = "latest"
+# Memory efficiency
+bitsandbytes = "latest" 
+accelerate = "latest"
+# Dependencies for silentcipher and audio
+pydub = "latest"
+scipy = "latest"
+librosa = "latest"
+omegaconf = "latest"
+fire = "latest"
+# Infrastructure
+tokenizers = "latest"
+transformers = "latest"
+hf_transfer = "latest"
+huggingface-hub = "latest"
+soundfile = "latest"
+numpy = "1.26.4"
